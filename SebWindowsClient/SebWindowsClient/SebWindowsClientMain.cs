@@ -264,30 +264,7 @@ namespace SebWindowsClient
         /// Detect if running in various virtual machines.
         /// C# code only solution which is more compatible.
         /// </summary>
-        private static bool IsInsideVM()
-        {
-            using (var searcher = new ManagementObjectSearcher("Select * from Win32_ComputerSystem"))
-            {
-                using (var items = searcher.Get())
-                {
-                    foreach (var item in items)
-                    {
-                        Logger.AddInformation("Win32_ComputerSystem Manufacturer: " + item["Manufacturer"].ToString() + ", Model: " + item["Model"].ToString(), null, null);
-
-                        string manufacturer = item["Manufacturer"].ToString().ToLower();
-                        string model = item["Model"].ToString().ToLower();
-                        if ((manufacturer == "microsoft corporation" && !model.Contains("surface"))
-                            || manufacturer.Contains("vmware")
-                            || manufacturer.Contains("parallels software") 
-                            || manufacturer.Contains("xen")
-                            || model.Contains("xen")
-                            || model.Contains("virtualbox"))
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
+        private static bool IsInsideVM() {
             return false;
         }
         
